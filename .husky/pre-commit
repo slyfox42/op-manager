@@ -1,0 +1,6 @@
+output="$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^.+\/.+\.(tsx|ts|js)$' | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/ /g')"
+if [ -n "$output"  ]
+then
+npx ts-standard $(git diff --cached --name-only --diff-filter=ACMR | grep -E '^.+\/.+\.(tsx|ts|js)$' | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/ /g') --fix
+git update-index --again
+fi
